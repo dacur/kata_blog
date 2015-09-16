@@ -3,4 +3,19 @@ class PostsController < ApplicationController
     @posts = Post.all
     render json: @posts
   end
+
+  def create 
+    @post = Post.new(post_params)
+    if @post.save
+      render json: @post, status: 201
+    else
+      render json: @post.errors, status: 422
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end
