@@ -11,6 +11,7 @@ RSpec.describe PostsController, type: :controller do
       expect(post_json.first["title"]).to eq("MyString")
     end
   end
+
   describe "POST /create" do
     context "with valid params" do
       let(:valid_params) { attributes_for(:post, title: "Hello World", body: "This is my first post!") }
@@ -34,4 +35,19 @@ RSpec.describe PostsController, type: :controller do
       end
     end
   end
+
+  describe "PUT /update" do
+    let(:post) { create(:post) }
+    let(:new_params) { attributes_for(:post, title: "Hello New World", body: "Blah blah blah.") }
+    it "allows you to edit a blog post" do
+      post
+      put :update, id: post.id, post: new_params, format: :json
+      expect(response).to have_http_status(:ok)
+      post_json = JSON.parse(response.body)
+      expect(post_json["title"]).to eq("Hello New World")
+      expect(post_json["body"]).to eq("Blah blah blah.")
+      expect { put :update, id: post.id, post: new_params, format: :json}.to_not change{ Post.count }
+    end
+  end
+
 end

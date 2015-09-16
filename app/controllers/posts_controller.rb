@@ -13,6 +13,15 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(post_params)
+      render json: @post, status: :ok
+    else
+      render json: @post.errors, status: 422
+    end
+  end
+
   private
 
   def post_params
