@@ -50,4 +50,18 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
+  describe "DELETE /destroy" do
+    let(:post) { create(:post) }
+    it "deletes a blog post" do
+      post
+      delete :destroy, id: post.id
+      expect(response).to have_http_status(:ok)
+      expect(Post.count).to eq(0)
+    end
+    it "reduces blog posts count by 1 when deleted" do
+      post
+      expect { delete :destroy, id: post.id}.to change{ Post.count }.by(-1)
+    end
+  end
+
 end

@@ -1,1 +1,5 @@
-<%= @posts %>
+<h2>Kata Blog</h2>
+<% @posts.each do |post| %>
+<p><%= link_to post.title, post_path(post.id) %></p>
+<p><%= post.body %></p>
+<% end %>
