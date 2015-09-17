@@ -2,6 +2,6 @@
 <p>Click <%= link_to 'here', new_post_path %> to create a new post</p>
 <h3>Recent Posts</h3>
 <% @posts.each do |post| %>
-<p><%= link_to post.title, post_path(post.id) %></p>
-<p><%= post.body %></p>
+<p><%= link_to post.title, post_path(post.id) %> <br/> 
+  Updated on: <%= post.created_at.strftime("%B %d, %Y") %></p>
 <% end %>
