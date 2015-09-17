@@ -11,31 +11,32 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
   def create 
     @post = Post.new(post_params)
     if @post.save
-      # render json: @post, status: 201
-      redirect_to '/'
+      redirect_to root_path
     else
-      render json: @post.errors, status: 422
+      render :new
     end
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(post_params)
-      # render json: @post, status: :ok
-      # @post
-      redirect_to '/'
+      redirect_to root_path
     else
-      render json: @post.errors, status: 422
+      render :edit
     end
   end
 
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to '/'
+    redirect_to root_path
   end
 
   private

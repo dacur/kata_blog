@@ -17,5 +17,5 @@ When(/^I click "(.*?)" button$/) do |btn|
 end
 
 Then(/^I should be redirected to the Home page$/) do
-  page.should have_content(@title)
+  expect(page).to have_content(@title)
 end
